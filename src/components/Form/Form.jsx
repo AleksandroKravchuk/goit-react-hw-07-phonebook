@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { FormName, InputName, Label, Button } from './Form.styled';
-import { actions } from 'redux/actions';
+import { fetchAddContact } from 'redux/operations';
 
 export const Form = () => {
   const [name, setName] = useState('');
@@ -27,8 +26,7 @@ export const Form = () => {
   const addName = () => {
     const nameItem = {
       name,
-      id: nanoid(),
-      number,
+      phone: number,
     };
 
     const normalizedName = name.toLowerCase();
@@ -40,7 +38,7 @@ export const Form = () => {
     });
 
     if (!chekedName & !chekedTel) {
-      dispatch(actions.addContact(nameItem));
+      dispatch(fetchAddContact(nameItem));
       Notify.success(`${name} added in contacts`);
     } else if (chekedName) {
       return Notify.failure(`${name} is already in contacts`);
