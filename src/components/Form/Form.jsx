@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { FormName, InputName, Label, Button } from './Form.styled';
-import { fetchAddContact } from 'redux/operations';
+import { useAddContactMutation, useGetContactsQuery } from 'redux/operations';
+// import { fetchAddContact } from 'redux/operations';
 
 export const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(state => state.contacts.items);
+  const [addContacts, { isLoading }] = useAddContactMutation();
+  const { data } = useGetContactsQuery();
 
   const onChangeInput = evt => {
     const { name, value } = evt.target;
@@ -28,23 +31,28 @@ export const Form = () => {
       name,
       phone: number,
     };
+    if (!data) {
+      return;
+    } else {
+      const normalizedName = name.toLowerCase();
+      const chekedName = data.find(item => {
+        return item.name.toLowerCase() === normalizedName;
+      });
+      const chekedTel = data.find(item => {
+        return item.phone === number;
+      });
 
-    const normalizedName = name.toLowerCase();
-    const chekedName = contacts.find(item => {
-      return item.name.toLowerCase() === normalizedName;
-    });
-    const chekedTel = contacts.find(item => {
-      return item.number === number;
-    });
-
-    if (!chekedName & !chekedTel) {
-      dispatch(fetchAddContact(nameItem));
-      Notify.success(`${name} added in contacts`);
-    } else if (chekedName) {
-      return Notify.failure(`${name} is already in contacts`);
-    }
-    if (chekedTel) {
-      return Notify.failure(`Number ${number} is already in contacts`);
+      if (!chekedName & !chekedTel) {
+        // dispatch(fetchAddContact(nameItem));
+        addContacts(nameItem);
+        Notify.success(`${name} added in contacts`);
+      }
+      if (chekedName) {
+        return Notify.failure(`${name} is already in contacts`);
+      }
+      if (chekedTel) {
+        return Notify.failure(`Number ${number} is already in contacts`);
+      }
     }
   };
   const hendelSubmit = evt => {

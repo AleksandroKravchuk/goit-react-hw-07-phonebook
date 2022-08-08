@@ -1,15 +1,20 @@
 import styled from '@emotion/styled';
 
 export const ContactsText = styled.p`
+  position: relative;
   font-size: ${props => props.theme.fontSizes.medium};
   color: ${props => props.theme.colors.white};
   text-align: ${({ textAlign }) => (!textAlign ? 'left' : textAlign)};
   padding: ${props => props.theme.spacing.step}px;
 `;
 export const Tel = styled.span`
+  position: absolute;
+  left: 55%;
+  top: 20%;
   font-size: ${props => props.theme.fontSizes.small};
   margin-left: ${props => props.theme.spacing.step}px;
   color: ${props => props.theme.colors.light};
+  margin-left: auto;
 `;
 export const ButtonDelete = styled.button`
   font-size: ${props => props.theme.fontSizes.small};

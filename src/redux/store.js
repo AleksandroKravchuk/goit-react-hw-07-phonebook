@@ -1,11 +1,16 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-// import storage from 'redux-persist/lib/storage';
+import { configureStore } from '@reduxjs/toolkit';
+// import logger from 'redux-logger';
 import reducers from './reducer';
-const middleware = [...getDefaultMiddleware(), logger];
+// const middleware = [...getDefaultMiddleware(), logger];
+import { contactApi } from './operations';
 
 export const store = configureStore({
-  reducer: { contacts: reducers },
-  middleware,
-  devTools: process.env.MODE_ENV === 'development',
+  reducer: {
+    contacts: reducers,
+    [contactApi.reducerPath]: contactApi.reducer,
+  },
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    contactApi.middleware,
+  ],
 });
