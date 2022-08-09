@@ -4,6 +4,7 @@ export const SectionWrap = styled.section`
   text-align: start;
   padding: ${props => props.theme.spacing.step * 5}px;
   width: 400px;
+  position: relative;
 `;
 export const Heading = styled.h2`
   font-size: ${props => props.theme.fontSizes.medium};

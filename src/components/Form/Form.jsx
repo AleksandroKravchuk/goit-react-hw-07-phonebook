@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-// import { useSelector } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { FormName, InputName, Label, Button } from './Form.styled';
 import { useAddContactMutation, useGetContactsQuery } from 'redux/operations';
+import { LoaderButton } from 'components/Loader/Loader';
+// import { useSelector } from 'react-redux';
 // import { fetchAddContact } from 'redux/operations';
 
 export const Form = () => {
@@ -91,7 +92,9 @@ export const Form = () => {
           onChange={onChangeInput}
         />
       </Label>{' '}
-      <Button type="submit">Add contact</Button>
+      <Button type="submit">
+        {isLoading ? <LoaderButton /> : 'Add contact'}
+      </Button>
     </FormName>
   );
 };

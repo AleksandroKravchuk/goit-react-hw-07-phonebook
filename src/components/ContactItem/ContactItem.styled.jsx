@@ -17,12 +17,16 @@ export const Tel = styled.span`
   margin-left: auto;
 `;
 export const ButtonDelete = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: ${props => props.theme.fontSizes.small};
   background-color: ${props => props.theme.colors.primary};
-  margin-left: ${props => props.theme.spacing.step}px;
-  padding: ${props => props.theme.spacing.step}px;
+  width: ${props => props.theme.spacing.step * 12}px;
+  height: ${props => props.theme.spacing.step * 5}px;
   border-radius: ${props => props.theme.spacing.step}px;
   right: ${props => props.theme.spacing.step}px;
+  top: ${props => props.theme.spacing.step}px;
   position: absolute;
   cursor: pointer;
   border: none;

@@ -1,14 +1,16 @@
 import React from 'react';
-// import { useDispatch } from 'react-redux';
-// import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { ContactsList, ContactsItem } from './Contacts.styled';
 import ContactName from 'components/ContactItem/ContaciItem';
 import { useGetContactsQuery } from 'redux/operations';
+import { Loader } from 'components/Loader/Loader';
+// import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
 // import { fetchGetContact } from 'redux/operations';
 
 const Contacts = () => {
-  const { data, error, isLoading } = useGetContactsQuery();
+  const { data, error, isFetching } = useGetContactsQuery();
 
   // const dispatch = useDispatch();
   // useEffect(() => {
@@ -28,12 +30,14 @@ const Contacts = () => {
   };
   return (
     <ContactsList>
+      {isFetching && <Loader />}
       {getVisibleName() &&
         getVisibleName().map(item => (
           <ContactsItem key={item.id}>
             <ContactName name={item.name} tel={item.phone} id={item.id} />
           </ContactsItem>
         ))}
+      {error && Notify.failure('Sorry request failed')}
     </ContactsList>
   );
 };

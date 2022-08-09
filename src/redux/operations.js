@@ -1,8 +1,8 @@
 // import axios from 'axios';
 // import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // import { createAsyncThunk } from '@reduxjs/toolkit';
 // axios.defaults.baseURL = 'https://62ef7097f5521ecad582887f.mockapi.io';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
@@ -38,7 +38,6 @@ export const {
   useDeleteContactMutation,
   useAddContactMutation,
 } = contactApi;
-
 
 // createAsyncThunk;
 
